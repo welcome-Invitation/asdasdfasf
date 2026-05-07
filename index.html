@@ -302,17 +302,6 @@ body {
   </div>
 </div>
 
-<!-- MODAL -->
-<div id="languageModal" class="modal">
-  <div class="modal-box">
-    <h2 class="title">Select Language</h2>
-    <p class="subtitle">Choose your preferred language</p>
-
-    <button class="lang-btn" onclick="setLanguage('en')">English</button>
-    <button class="lang-btn" onclick="setLanguage('mr')">मराठी</button>
-  </div>
-</div>
-
 <script>
 const content = {
   en: {
@@ -327,7 +316,7 @@ const content = {
   mr: {
     title: "आमच्या कुटुंबियांच्या आशीर्वादाने, आमच्या साखरपुड्याच्या समारंभासाठी आपणांस हार्दिक निमंत्रण",
     subtitle: "आमच्या नव्या प्रवासाच्या सुरुवातीला आपली उपस्थिती आमच्यासाठी आनंददायी ठरेल 🙏",
-    names: " श्रुतिका & विशाल",
+    names: "विशाल & श्रुतिका",
     details: "१७ मे २०२६ • सायं. ५:००",
     venueName: "Deluxe Banquet",
     venueAddress: "अमर पॅलेस जवळ, मिरा रोड (पूर्व)",
@@ -348,8 +337,6 @@ function setLanguage(lang) {
 
   const mapsQuery = "Deluxe+Banquet+Mira+Road";
   document.getElementById('venueLink').href = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
-
-  document.getElementById('languageModal').style.display = "none";
   document.getElementById('card').classList.add("invitation-bg");
 
   const invitationScreen = document.getElementById('invitationScreen');
@@ -363,6 +350,7 @@ function setVH() {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
+setLanguage('en');
 setVH();
 window.addEventListener('resize', setVH);
 window.addEventListener('orientationchange', () => {
