@@ -427,48 +427,100 @@
     }
 
     .popup-number-circle {
-      width: 130px;
-      height: 130px;
-      background: #f4faf1;
+      width: 120px;
+      height: 120px;
+      background: #f7faf5;
       border-radius: 50%;
-      margin: 12px auto 20px;
+      margin: 14px auto 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 56px;
+      font-size: 48px;
       font-weight: 800;
       color: #2d5a3f;
-      border: 5px solid #e3efde;
+      border: 2px solid #dfe9dd;
     }
 
-    .popup-summary {
+    .popup-header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .popup-title {
+      color: #3c4f3c;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .popup-name {
+      color: #2e3f2e;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .popup-details {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 20px 0;
+      gap: 6px;
+      color: #3f503f;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      text-align: center;
     }
 
-    .summary-card {
-      background: #f9fdf7;
-      border-radius: 26px;
-      padding: 18px;
+    .detail-pair {
+      display: grid;
+      gap: 2px;
+      line-height: 1.2;
+    }
+
+    .detail-pair span {
+      color: #7d8c7d;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .detail-pair strong {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #263626;
+    }
+
+    .popup-formula {
+      color: #3d4f3d;
+      font-size: 0.95rem;
+      text-align: center;
+      margin-bottom: 18px;
+      opacity: 0.95;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .letters-label {
+      font-size: 0.88rem;
+      color: #5b6d5b;
+      font-weight: 700;
+      margin-bottom: 10px;
       text-align: center;
     }
 
     .letters-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
-      gap: 12px;
-      margin-top: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+      gap: 10px;
+      margin-top: 6px;
     }
 
     .letter-tile {
-      background: #ffffff;
-      border-radius: 22px;
-      padding: 12px 8px;
+      background: #f7faf5;
+      border-radius: 16px;
+      padding: 10px 6px;
       text-align: center;
-      border: 1px solid #e9f1e5;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      border: 1px solid #e8efe6;
+      box-shadow: none;
     }
 
     .letter-char {
@@ -515,9 +567,6 @@
       }
       .popup-container {
         padding: 24px 18px;
-      }
-      .popup-summary {
-        grid-template-columns: 1fr;
       }
       .search-box-wrapper input {
         font-size: 1rem;
@@ -572,7 +621,7 @@
   </div>
   <div class="main-content">
     <div class="tabs">
-      <button class="tab-btn active" data-tab="manual">Manual Entry</button>
+      <button class="tab-btn active" data-tab="manual">Manual Calculation</button>
       <button class="tab-btn" data-tab="excel">Global Search</button>
     </div>
 
@@ -584,7 +633,8 @@
           <input type="text" id="manualNameInput" placeholder="Example: Shrawasti, Shrutika, Vishal" autocomplete="off" />
           <button id="calcBtn">Calculate Number</button>
         </div>
-        
+        <div class="info-note">Pythagorean numerology: each letter converts to a number, reduces to single digit.</div>
+      </div>
     </div>
 
     <!-- Database Tab - requires search prefix to display data, boy/girl only -->
@@ -628,14 +678,17 @@
 <div id="resultPopup" class="popup">
   <div class="popup-container">
     <div class="close-popup" id="closePopupBtn">×</div>
-    <h2 style="text-align: center; font-size: 26px; margin-bottom: 6px;">Numerology Reading</h2>
-    <div id="popupDisplayName" style="text-align: center; color: #6c8570; margin-bottom: 6px; font-weight: 500;"></div>
-    <div class="popup-number-circle" id="popupFinalNumber">0</div>
-    <div id="popupFormula" style="background: #F6FBF3; padding: 14px; border-radius: 32px; text-align: center; margin: 14px 0; font-size: 0.9rem;"></div>
-    <div class="popup-summary">
-      <div class="summary-card"><span style="color:#7f997c;">Reduction path</span><br><strong id="reductionPathSpan" style="font-size: 15px;">—</strong></div>
+    <div class="popup-header">
+      <div class="popup-title">Numerology Result</div>
+      <div id="popupDisplayName" class="popup-name"></div>
     </div>
-    <div style="font-weight: 600; margin: 12px 0 6px;">Letter values</div>
+    <div class="popup-number-circle" id="popupFinalNumber">0</div>
+    <div id="popupFormula" class="popup-formula"></div>
+    <div id="popupDetails" class="popup-details">
+<!--       <div class="detail-pair"><span>Total</span><strong id="totalSumSpan">0</strong></div>   -->
+      <div class="detail-pair"><span>Reduction</span><strong id="reductionPathSpan">—</strong></div>
+    </div>
+    <div class="letters-label">Letter values</div>
     <div id="lettersBreakdown" class="letters-grid"></div>
   </div>
 </div>
@@ -756,7 +809,7 @@
       
       masterNamesList = validEntries;
       databaseLoaded = true;
-      statusDiv.innerHTML = `<span>✓</span> Loaded ${masterNamesList.length} names (boy/girl only) · enter prefix to search`;
+      statusDiv.innerHTML = `<span>✓</span> Loaded Successfully · enter prefix to search`;
       renderEmptyState();
     } catch (err) {
       console.error("Excel load error:", err);
@@ -891,7 +944,7 @@
     document.getElementById('popupFinalNumber').innerText = finalNum;
     const formulaStr = formulaValues.join(' + ');
     document.getElementById('popupFormula').innerHTML = `${formulaStr} = <strong>${total}</strong>`;
-    document.getElementById('totalSumSpan').innerText = total;
+//    document.getElementById('totalSumSpan').innerText = total;
     document.getElementById('reductionPathSpan').innerHTML = reductions.join(' → ');
     
     const lettersContainer = document.getElementById('lettersBreakdown');
