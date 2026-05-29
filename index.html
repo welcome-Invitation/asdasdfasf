@@ -1,411 +1,1016 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- FORCE LIGHT MODE -->
-<meta name="color-scheme" content="light">
-<title>Engagement Invitation - Shrutika & Vishal</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes" />
+  <title>Numerology Studio | Destiny Number Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&family=Tiro+Devanagari+Marathi:wght@400&display=swap" rel="stylesheet">
-<link rel="preload" href="https://fonts.gstatic.com/s/tirodevaragari/v1/4Zx42Z3bMJ7C3Tkq3rN7wRY2OA-zvV9W5L.ttf" as="font" type="font/ttf" crossorigin>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ecf3e9;
+      color: #1a2c1e;
+      padding: 16px;
+      min-height: 100vh;
+    }
 
-<style>
-/* FORCE LIGHT MODE */
-:root {
-  color-scheme: light;
-}
+    /* Login Overlay */
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(125deg, #1a2e1f, #2d5a3f);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      transition: opacity 0.4s ease;
+    }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    .login-card {
+      background: white;
+      border-radius: 48px;
+      padding: 48px 40px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 0.5s ease;
+    }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: #faf6ef;
-  min-height: 100dvh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: clamp(8px, 3vw, 12px);
-}
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-/* CARD */
-.card {
-  width: 100%;
-  height: 100%;
-  padding: clamp(20px, 6vw, 36px) clamp(16px, 4vw, 20px);
-  border-radius: clamp(16px, 4vw, 20px);
-  border: 1px solid #e6d3a3;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background: rgba(255,255,255,0.94);
-  backdrop-filter: blur(8px);
-  transition: all 0.4s ease;
-}
+    .login-card h2 {
+      font-size: 28px;
+      color: #2d5a3f;
+      margin-bottom: 8px;
+    }
 
-/* Background */
-.invitation-bg {
-  background:
-    linear-gradient(rgba(255,255,255,0.42), rgba(255,255,255,0.42)),
-    url("bg.png");
-  background-size: cover;
-  background-position: center;
-  backdrop-filter: none !important;
-}
+    .login-card p {
+      color: #6b836f;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
 
-/* Golden frame */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: clamp(8px, 2vw, 10px);
-  border-radius: clamp(12px, 3vw, 14px);
-  border: 1px solid rgba(212,175,55,0.45);
-  box-shadow: 0 0 18px rgba(212,175,55,0.2);
-  pointer-events: none;
-}
+    .login-input {
+      width: 100%;
+      height: 56px;
+      border-radius: 56px;
+      border: 1.5px solid #e0ecdb;
+      padding: 0 24px;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      font-family: inherit;
+      outline: none;
+      transition: 0.2s;
+    }
 
-/* TEXT */
-.title {
-  font-size: clamp(12px, 3.5vw, 14px);
-  color: #8a6a2f;
-  font-weight: 500;
-  margin-bottom: clamp(8px, 2vw, 10px);
-  line-height: 1.6;
-}
+    .login-input:focus {
+      border-color: #2d5a3f;
+      box-shadow: 0 0 0 3px rgba(45, 90, 63, 0.12);
+    }
 
-.subtitle {
-  font-size: clamp(11px, 3vw, 13px);
-  color: #666;
-  margin-bottom: clamp(20px, 4vw, 24px);
-  line-height: 1.6;
-}
+    .login-btn {
+      width: 100%;
+      height: 56px;
+      border-radius: 56px;
+      background: #2d5a3f;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 8px;
+    }
 
-.names {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(45px, 9vw, 50px);
-  background: linear-gradient(45deg, #7a5525, #4a2e16);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 
-    0 2px 5px rgba(0,0,0,0.2),
-    0 0 5px rgba(212,175,55,0.2);
-  margin: clamp(14px, 4vw, 18px) 0 clamp(10px, 3vw, 12px);
-  line-height: 1.3;
-}
+    .login-btn:hover {
+      background: #1e402e;
+      transform: scale(0.98);
+    }
 
-.line {
-  width: clamp(50px, 12vw, 60px);
-  height: 2px;
-  background: #d4af37;
-  margin: clamp(14px, 4vw, 18px) auto;
-  position: relative;
-  overflow: hidden;
-}
+    .login-error {
+      color: #d14b4b;
+      font-size: 13px;
+      margin-top: 16px;
+      display: none;
+    }
 
-.line::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
-  animation: shine 2.5s infinite;
-}
+    /* Main App (hidden until login) */
+    .app-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 24px 42px -18px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease;
+    }
 
-.details {
-  font-size: clamp(13px, 4vw, 15px);
-  color: #444;
-  font-weight: 500;
-  margin-top: clamp(12px, 3vw, 14px);
-  line-height: 1.6;
-}
+    .app-container.visible {
+      opacity: 1;
+      visibility: visible;
+    }
 
-/* VENUE */
-.venue {
-  margin-top: auto;
-  font-size: clamp(11px, 3vw, 13px);
-  color: #666;
-  line-height: 1.7;
-  padding-top: clamp(16px, 4vw, 18px);
-}
+    .hero {
+      background: linear-gradient(125deg, #1f3b2c, #2d5a3f);
+      padding: 32px 32px;
+      color: white;
+    }
 
-.map-btn {
-  display: inline-block;
-  margin-top: clamp(12px, 3vw, 14px);
-  color: #4a2e16;
-  text-decoration: none;
-  font-weight: 500;
-  padding: clamp(10px, 3vw, 12px) clamp(14px, 4vw, 16px);
-  border: 2px solid #d4af37;
-  border-radius: 20px;
-  transition: all 0.25s ease;
-  box-shadow: 0 0 15px rgba(212,175,55,0.5), 0 0 30px rgba(212,175,55,0.3);
-  animation: highlight 1.5s infinite ease-in-out;
-  background: linear-gradient(45deg, rgba(212,175,55,0.1), rgba(212,175,55,0.05));
-}
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
 
+    .hero p {
+      opacity: 0.85;
+      font-size: 0.92rem;
+    }
 
-.map-btn:hover {
-  background: #d4af37;
-  color: #fff;
-  box-shadow: 0 0 20px rgba(212,175,55,0.9), 0 0 40px rgba(212,175,55,0.6);
-  transform: scale(1.1);
-  animation: none;
-}
+    .main-content {
+      padding: 32px 28px;
+      background: #ffffff;
+    }
 
-/* MARATHI */
-.lang-mr {
-  font-family: 'Tiro Devanagari Marathi', 'Noto Sans Devanagari', 'Mangal', 'Arial Unicode MS', 'DejaVu Sans', sans-serif;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    .tabs {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #e3ede0;
+      padding-bottom: 10px;
+      flex-wrap: wrap;
+    }
 
-.lang-mr .names {
-  font-size: clamp(40px, 9vw, 40px);
-}
+    .tab-btn {
+      background: transparent;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 44px;
+      color: #5b6e5f;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-.lang-mr .title {
-  font-size: clamp(13px, 4vw, 15px);
-}
+    .tab-btn.active {
+      background: #2d5a3f;
+      color: white;
+      box-shadow: 0 6px 12px -8px rgba(45, 90, 63, 0.3);
+    }
 
-.lang-mr .subtitle {
-  font-size: clamp(12px, 3.2vw, 13px);
-}
+    .card {
+      background: #fefefb;
+      border: 1px solid #e6f0e3;
+      border-radius: 28px;
+      padding: 26px 26px;
+      box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.04);
+    }
 
-/* MODAL */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(6px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  padding: 15px;
-}
+    label {
+      font-weight: 600;
+      color: #3a6146;
+      display: block;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
+    }
 
-.modal-box {
-  background: #fff;
-  padding: clamp(24px, 8vw, 28px) 20px;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 320px;
-  text-align: center;
-  border: 1px solid rgba(212,175,55,0.4);
-}
+    .search-section {
+      margin-bottom: 24px;
+    }
 
-.lang-btn {
-  width: 100%;
-  padding: 15px;
-  margin-top: 14px;
-  border-radius: 25px;
-  border: 1px solid #d4af37;
-  background: none;
-  font-size: clamp(14px, 4vw, 15px);
-  color: #8a6a2f;
-  cursor: pointer;
-}
+    .search-box-wrapper {
+      margin-bottom: 20px;
+    }
 
-.lang-btn:active {
-  transform: scale(0.98);
-  background: #d4af37;
-  color: #fff;
-}
+    .search-box-wrapper input {
+      width: 100%;
+      height: 56px;
+      border-radius: 56px;
+      border: 1.5px solid #e0ecdb;
+      padding: 0 24px;
+      font-size: 1rem;
+      background: white;
+      font-family: inherit;
+      outline: none;
+      transition: 0.2s;
+    }
 
-/* ANIMATION */
-@keyframes shine {
-  100% { left: 100%; }
-}
+    .search-box-wrapper input:focus {
+      border-color: #2d5a3f;
+      box-shadow: 0 0 0 3px rgba(45, 90, 63, 0.12);
+    }
 
-@keyframes highlight {
-  0% { 
-    box-shadow: 0 0 15px rgba(212,175,55,0.5), 0 0 30px rgba(212,175,55,0.3);
-    transform: scale(1);
-  }
-  50% { 
-    box-shadow: 0 0 25px rgba(212,175,55,0.8), 0 0 50px rgba(212,175,55,0.5);
-    transform: scale(1.05);
-  }
-  100% { 
-    box-shadow: 0 0 15px rgba(212,175,55,0.5), 0 0 30px rgba(212,175,55,0.3);
-    transform: scale(1);
-  }
-}
+    .filters-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
 
-/* MOBILE */
-@media (max-width: 480px) {
-  .card {
-    min-height: calc(var(--vh, 1vh) * 92);
-    padding: 24px 16px;
-  }
+    .filters-row select {
+      flex: 1;
+      min-width: 140px;
+      height: 52px;
+      border-radius: 48px;
+      border: 1.5px solid #e0ecdb;
+      padding: 0 20px;
+      font-size: 0.9rem;
+      background: white;
+      font-family: inherit;
+      outline: none;
+      cursor: pointer;
+    }
 
-  .names {
-    font-size: clamp(32px, 9vw, 42px);
-  }
+    .row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
-  .map-btn {
-    width: 100%;
-  }
-}
+    input, select {
+      flex: 1;
+      min-width: 160px;
+      height: 54px;
+      border-radius: 48px;
+      border: 1.5px solid #e0ecdb;
+      padding: 0 22px;
+      font-size: 0.95rem;
+      background: white;
+      font-family: inherit;
+      outline: none;
+      transition: 0.2s;
+    }
 
-/* EXTRA DARK MODE BLOCK (OVERRIDE) */
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #faf6ef;
-    color: #000;
-  }
+    input:focus, select:focus {
+      border-color: #2d5a3f;
+      box-shadow: 0 0 0 3px rgba(45, 90, 63, 0.12);
+    }
 
-  .card {
-    background: rgba(255,255,255,0.94);
-    backdrop-filter: blur(8px);
-  }
+    button {
+      height: 54px;
+      padding: 0 32px;
+      border-radius: 54px;
+      border: none;
+      background: #2d5a3f;
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+    }
 
-  .card.invitation-bg {
-    background: 
-      linear-gradient(rgba(255,255,255,0.42), rgba(255,255,255,0.42)),
-      url("bg.png") center/cover no-repeat,
-      rgba(255,255,255,0.94);
-    background-attachment: fixed;
-    backdrop-filter: none !important;
-  }
-}
-</style>
+    button:active {
+      transform: scale(0.97);
+      background: #1e402e;
+    }
+
+    .status-badge {
+      background: #eff6ec;
+      border-radius: 54px;
+      padding: 12px 20px;
+      margin-bottom: 24px;
+      font-weight: 500;
+      color: #2a6e3f;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-badge.error {
+      background: #fff0ef;
+      color: #bc5a4c;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 420px;
+    }
+
+    th {
+      background: #f0f7ec;
+      color: #2a5438;
+      padding: 16px 12px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    td {
+      padding: 14px 10px;
+      border-bottom: 1px solid #eef3ea;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .mobile-cards {
+      display: none;
+      gap: 16px;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    .result-card {
+      background: #fdfdfa;
+      border-radius: 26px;
+      padding: 18px;
+      border: 1px solid #e6f0e2;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+
+    .result-label {
+      font-weight: 600;
+      color: #6b836f;
+    }
+
+    .result-card button {
+      width: 100%;
+      margin-top: 12px;
+      height: 46px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      background: #fafdf8;
+      border-radius: 28px;
+      color: #8aa38b;
+      font-weight: 500;
+    }
+
+    .empty-state-icon {
+      font-size: 42px;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+
+    .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 28, 16, 0.75);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+
+    .popup-container {
+      max-width: 560px;
+      width: 100%;
+      background: white;
+      border-radius: 40px;
+      padding: 32px 28px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .close-popup {
+      position: absolute;
+      top: 20px;
+      right: 22px;
+      width: 42px;
+      height: 42px;
+      background: #f0f7ed;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      color: #4a6e53;
+    }
+
+    .popup-number-circle {
+      width: 130px;
+      height: 130px;
+      background: #f4faf1;
+      border-radius: 50%;
+      margin: 12px auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      font-weight: 800;
+      color: #2d5a3f;
+      border: 5px solid #e3efde;
+    }
+
+    .popup-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .summary-card {
+      background: #f9fdf7;
+      border-radius: 26px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .letters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .letter-tile {
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 12px 8px;
+      text-align: center;
+      border: 1px solid #e9f1e5;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .letter-char {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2d5a3f;
+    }
+
+    .letter-value {
+      background: #eef5ea;
+      width: 44px;
+      height: 44px;
+      border-radius: 44px;
+      margin: 10px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .main-content {
+        padding: 20px 16px;
+      }
+      .desktop-table {
+        display: none;
+      }
+      .mobile-cards {
+        display: flex;
+      }
+      .filters-row {
+        flex-direction: column;
+      }
+      .filters-row select {
+        width: 100%;
+      }
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+      .popup-container {
+        padding: 24px 18px;
+      }
+      .popup-summary {
+        grid-template-columns: 1fr;
+      }
+      .search-box-wrapper input {
+        font-size: 1rem;
+        height: 60px;
+      }
+      .login-card {
+        padding: 36px 28px;
+      }
+    }
+
+    @media (min-width: 721px) {
+      .desktop-table {
+        display: block;
+      }
+    }
+
+    .destiny-badge {
+      background: #eef5ea;
+      padding: 5px 14px;
+      border-radius: 44px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .info-note {
+      font-size: 12px;
+      color: #81997f;
+      margin-top: 16px;
+      text-align: center;
+    }
+  </style>
 </head>
-
 <body>
-<div class="card" id="card">
-  <div id="invitationScreen">
-    <div class="title" id="title"></div>
-    <div class="subtitle" id="subtitle"></div>
 
-    <div class="names" id="names"></div>
-    <div class="line"></div>
+<!-- Login Overlay -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-card">
+    <h2>Numerology Studio</h2>
+    <p>Enter credentials to continue</p>
+    <input type="text" id="loginUsername" class="login-input" placeholder="Username" autocomplete="off" />
+    <input type="password" id="loginPassword" class="login-input" placeholder="Password" autocomplete="off" />
+    <button id="loginBtn" class="login-btn">Login</button>
+    <div id="loginError" class="login-error">Invalid username or password</div>
+  </div>
+</div>
 
-    <div class="details" id="details"></div>
+<!-- Main App -->
+<div id="appContainer" class="app-container">
+  <div class="hero">
+    <h1>Numerology Studio</h1>
+    <p>Destiny number · name vibration · precision analysis</p>
+  </div>
+  <div class="main-content">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="manual">Manual Entry</button>
+      <button class="tab-btn" data-tab="excel">Name Database</button>
+    </div>
 
-    <div class="venue">
-      <b id="venueName"></b><br>
-      <span id="venueAddress"></span><br>
-      <a id="venueLink" class="map-btn" target="_blank"></a>
+    <!-- Manual Tab -->
+    <div id="manualPanel" class="tab-panel">
+      <div class="card">
+        <label>Full name (letters and spaces)</label>
+        <div class="row">
+          <input type="text" id="manualNameInput" placeholder="Example: Shrawasti, Shrutika, Vishal" autocomplete="off" />
+          <button id="calcBtn">Calculate Number</button>
+        </div>
+        <div class="info-note">Pythagorean numerology: each letter converts to a number, reduces to single digit.</div>
+      </div>
+    </div>
+
+    <!-- Database Tab - requires search prefix to display data, boy/girl only -->
+    <div id="excelPanel" class="tab-panel hidden">
+      <div class="card">
+        <div class="status-badge" id="excelLoadStatus">
+          <span>⟳</span> Loading name database...
+        </div>
+        
+        <div class="search-section">
+          <div class="search-box-wrapper">
+            <input type="text" id="searchNameInput" placeholder="Type name prefix (e.g., Sa, Vi, An, Chr) to search..." autocomplete="off" />
+          </div>
+          <div class="filters-row">
+            <select id="genderSelect">
+              <option value="">All genders</option>
+              <option value="boy">Boy</option>
+              <option value="girl">Girl</option>
+            </select>
+            <select id="numSelect">
+              <option value="">Destiny Number</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option>
+              <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Desktop table -->
+        <div class="table-wrapper desktop-table">
+          <div id="desktopResultsContainer"></div>
+        </div>
+        
+        <!-- Mobile cards -->
+        <div id="mobileCardsList" class="mobile-cards"></div>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- Result Popup -->
+<div id="resultPopup" class="popup">
+  <div class="popup-container">
+    <div class="close-popup" id="closePopupBtn">×</div>
+    <h2 style="text-align: center; font-size: 26px; margin-bottom: 6px;">Numerology Reading</h2>
+    <div id="popupDisplayName" style="text-align: center; color: #6c8570; margin-bottom: 6px; font-weight: 500;"></div>
+    <div class="popup-number-circle" id="popupFinalNumber">0</div>
+    <div id="popupFormula" style="background: #F6FBF3; padding: 14px; border-radius: 32px; text-align: center; margin: 14px 0; font-size: 0.9rem;"></div>
+    <div class="popup-summary">
+      <div class="summary-card"><span style="color:#7f997c;">Total sum</span><br><strong id="totalSumSpan" style="font-size: 36px;">0</strong></div>
+      <div class="summary-card"><span style="color:#7f997c;">Reduction path</span><br><strong id="reductionPathSpan" style="font-size: 15px;">—</strong></div>
+    </div>
+    <div style="font-weight: 600; margin: 12px 0 6px;">Letter values</div>
+    <div id="lettersBreakdown" class="letters-grid"></div>
+  </div>
+</div>
+
 <script>
-const content = {
-  en: {
-    title: "With the blessings of our families, we joyfully invite you to our Engagement Ceremony",
-    subtitle: "A beautiful new journey begins... We would love to celebrate this special moment with you",
-    names: "Shrutika & Vishal",
-    details: "17 May 2026 • 5:00 PM",
-    venueName: "Deluxe Banquet",
-    venueAddress: "Near Amar Palace, Mira Road East",
-    mapText: "Open in Google Maps"
-  },
-  mr: {
-    title: "आमच्या कुटुंबियांच्या आशीर्वादाने, आमच्या साखरपुड्याच्या समारंभासाठी आपणांस हार्दिक निमंत्रण",
-    subtitle: "आमच्या नव्या प्रवासाच्या सुरुवातीला आपली उपस्थिती आमच्यासाठी आनंददायी ठरेल 🙏",
-    names: "विशाल & श्रुतिका",
-    details: "१७ मे २०२६ • सायं. ५:००",
-    venueName: "Deluxe Banquet",
-    venueAddress: "अमर पॅलेस जवळ, मिरा रोड (पूर्व)",
-    mapText: "Google Maps मध्ये उघडा"
+  // ===================== NUMEROLOGY CORE =====================
+  const numerologyMap = {
+    1: ['A', 'I', 'J', 'Q', 'Y'],
+    2: ['B', 'K', 'R'],
+    3: ['C', 'G', 'L', 'S'],
+    4: ['D', 'M', 'T'],
+    5: ['E', 'H', 'N', 'X'],
+    6: ['U', 'V', 'W'],
+    7: ['O', 'Z'],
+    8: ['F', 'P']
+  };
+
+  function getLetterValue(letter) {
+    const upper = letter.toUpperCase();
+    for (let num in numerologyMap) {
+      if (numerologyMap[num].includes(upper)) return parseInt(num);
+    }
+    return 0;
   }
-};
 
-function setLanguage(lang) {
-  const d = content[lang];
+  function getReductionSteps(num) {
+    let steps = [num];
+    let current = num;
+    while (current > 9) {
+      let sum = 0;
+      let str = current.toString();
+      for (let ch of str) sum += parseInt(ch);
+      current = sum;
+      steps.push(current);
+    }
+    return steps;
+  }
 
-  document.getElementById('title').innerText = d.title;
-  document.getElementById('subtitle').innerText = d.subtitle;
-  document.getElementById('names').innerText = d.names;
-  document.getElementById('details').innerText = d.details;
-  document.getElementById('venueName').innerText = d.venueName;
-  document.getElementById('venueAddress').innerText = d.venueAddress;
-  document.getElementById('venueLink').innerText = d.mapText;
+  function getFinalDestinyNumber(name) {
+    let total = 0;
+    for (let char of name) {
+      if (char === ' ') continue;
+      total += getLetterValue(char);
+    }
+    const steps = getReductionSteps(total);
+    return steps[steps.length - 1];
+  }
 
-  const mapsQuery = "Deluxe+Banquet+Mira+Road";
-  document.getElementById('venueLink').href = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
-  document.getElementById('card').classList.add("invitation-bg");
+  function getFullCalculation(name) {
+    let total = 0;
+    let formulaValues = [];
+    let lettersInfo = [];
+    for (let char of name) {
+      if (char === ' ') continue;
+      const val = getLetterValue(char);
+      total += val;
+      formulaValues.push(val);
+      lettersInfo.push({ letter: char.toUpperCase(), value: val });
+    }
+    const reductions = getReductionSteps(total);
+    const finalNum = reductions[reductions.length - 1];
+    return { total, formulaValues, reductions, finalNum, lettersInfo };
+  }
 
-  const invitationScreen = document.getElementById('invitationScreen');
-  invitationScreen.classList.remove("lang-mr");
-  if (lang === "mr") invitationScreen.classList.add("lang-mr");
-}
+  // ===================== EXCEL LOADER (NO SAMPLE DATA, NO UNISEX) =====================
+  const EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1Jc6itshgW7SxfgjYaDD9Wzl_C-rV1eqU/export?format=xlsx';
+  let masterNamesList = [];
+  let databaseLoaded = false;
 
-// Mobile viewport fix
-function setVH() {
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-
-setLanguage('en');
-setVH();
-window.addEventListener('resize', setVH);
-window.addEventListener('orientationchange', () => {
-  setTimeout(setVH, 100);
-});
-
-// iPhone Safari Detection & Redirect (NEW)
-function isIPhone() {
-  return /iPhone/i.test(navigator.userAgent);
-}
-
-function openInSafari() {
-  if (isIPhone()) {
-    const currentUrl = window.location.href;
-    const safariUrl = 'x-safari-https:' + currentUrl.replace(/^https?:\/\//, '');
-    if (confirm('For best experience, open in Safari?')) {
-      window.location.href = safariUrl;
+  async function loadExcelDatabase() {
+    const statusDiv = document.getElementById('excelLoadStatus');
+    try {
+      statusDiv.innerHTML = '<span>⟳</span> Fetching official name database...';
+      const response = await fetch(EXCEL_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}: failed to load spreadsheet`);
+      const buffer = await response.arrayBuffer();
+      const workbook = XLSX.read(buffer, { type: 'array' });
+      if (!workbook.SheetNames.length) throw new Error('No sheets found');
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(firstSheet);
+      
+      if (!rows || rows.length === 0) throw new Error('Spreadsheet contains no data rows');
+      
+      let validEntries = [];
+      for (let row of rows) {
+        let nameVal = row.Name || row.name || row.NAME || row.Name_EN || null;
+        let genderVal = row.Gender || row.gender || row.GENDER || null;
+        
+        if (!nameVal && Object.keys(row).length > 0) {
+          const firstKey = Object.keys(row)[0];
+          nameVal = row[firstKey];
+          if (!genderVal && Object.keys(row).length > 1) {
+            const secondKey = Object.keys(row)[1];
+            if (secondKey) genderVal = row[secondKey];
+          }
+        }
+        
+        if (nameVal) {
+          let rawName = String(nameVal).trim();
+          if (rawName !== "" && rawName !== "Name" && rawName !== "NAME" && rawName.length > 0) {
+            let rawGender = genderVal ? String(genderVal).trim().toLowerCase() : "";
+            
+            if (rawGender === 'm' || rawGender === 'male') rawGender = 'boy';
+            else if (rawGender === 'f' || rawGender === 'female') rawGender = 'girl';
+            
+            if (rawGender !== 'boy' && rawGender !== 'girl') {
+              continue;
+            }
+            
+            validEntries.push({ Name: rawName, Gender: rawGender });
+          }
+        }
+      }
+      
+      if (validEntries.length === 0) {
+        throw new Error('No valid names found. Ensure columns include "Name" and Gender (boy/girl). Unisex entries are excluded.');
+      }
+      
+      masterNamesList = validEntries;
+      databaseLoaded = true;
+      statusDiv.innerHTML = `<span>✓</span> Loaded ${masterNamesList.length} names (boy/girl only) · enter prefix to search`;
+      renderEmptyState();
+    } catch (err) {
+      console.error("Excel load error:", err);
+      statusDiv.innerHTML = `<span>⚠</span> ${err.message || "Could not load database. Check sheet access and format."}`;
+      statusDiv.classList.add('error');
+      masterNamesList = [];
+      databaseLoaded = false;
+      renderEmptyState(true);
     }
   }
-}
 
-// Trigger after short delay (after language modal)
-setTimeout(openInSafari, 500);
+  function renderEmptyState(isError = false) {
+    const desktopContainer = document.getElementById('desktopResultsContainer');
+    const mobileContainer = document.getElementById('mobileCardsList');
+    if (isError || masterNamesList.length === 0) {
+      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📄</div><div>No database loaded. Please refresh or check spreadsheet.</div></div>`;
+      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📄</div><div>No data available.</div></div>`;
+    } else {
+      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Type at least 1 letter in search box to see names</div><div style="font-size:13px; margin-top:8px;">Example: "Sa", "Vi", "An"</div></div>`;
+      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Enter a name prefix to search</div><div style="font-size:13px; margin-top:6px;">Use search box above</div></div>`;
+    }
+  }
 
-// Font loading check for Marathi
-function checkMarathiFont() {
-  const testText = 'मराठी';
-  const testDiv = document.createElement('div');
-  testDiv.style.fontFamily = "'Tiro Devanagari Marathi', 'Noto Sans Devanagari', 'Mangal', 'Arial Unicode MS', 'DejaVu Sans', sans-serif";
-  testDiv.style.position = 'absolute';
-  testDiv.style.left = '-9999px';
-  testDiv.style.fontSize = '20px';
-  testDiv.textContent = testText;
-  document.body.appendChild(testDiv);
-
-  const width1 = testDiv.offsetWidth;
-  testDiv.style.fontFamily = "'Noto Sans Devanagari', 'Mangal', 'Arial Unicode MS', 'DejaVu Sans', sans-serif";
-  const width2 = testDiv.offsetWidth;
-
-  document.body.removeChild(testDiv);
-
-  // If widths are different, font loaded successfully
-  return width1 !== width2;
-}
-
-// Apply font fallback if Marathi font fails to load
-setTimeout(() => {
-  if (!checkMarathiFont()) {
-    const langMrElements = document.querySelectorAll('.lang-mr');
-    langMrElements.forEach(el => {
-      el.style.fontFamily = "'Noto Sans Devanagari', 'Mangal', 'Arial Unicode MS', 'DejaVu Sans', sans-serif";
+  function renderSearchResults() {
+    const searchTerm = document.getElementById('searchNameInput').value.trim().toLowerCase();
+    const desktopContainer = document.getElementById('desktopResultsContainer');
+    const mobileContainer = document.getElementById('mobileCardsList');
+    
+    if (!searchTerm || searchTerm.length === 0) {
+      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Start typing a name prefix (e.g., "Sa", "Vi", "An")</div><div style="font-size:13px; margin-top:8px;">Search is required to display results</div></div>`;
+      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Type at least 1 character to search</div></div>`;
+      return;
+    }
+    
+    if (!databaseLoaded || masterNamesList.length === 0) {
+      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠</div><div>Database not loaded yet. Please wait or refresh.</div></div>`;
+      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠</div><div>Loading names...</div></div>`;
+      return;
+    }
+    
+    const genderFilter = document.getElementById('genderSelect').value.toLowerCase();
+    const numberFilter = document.getElementById('numSelect').value;
+    
+    let filtered = [...masterNamesList];
+    filtered = filtered.filter(item => item.Name.toLowerCase().startsWith(searchTerm));
+    
+    if (genderFilter) {
+      filtered = filtered.filter(item => item.Gender === genderFilter);
+    }
+    if (numberFilter !== "") {
+      const targetNum = parseInt(numberFilter);
+      filtered = filtered.filter(item => getFinalDestinyNumber(item.Name) === targetNum);
+    }
+    
+    if (filtered.length === 0) {
+      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>No names starting with "${escapeHtml(searchTerm)}"</div><div style="font-size:13px; margin-top:8px;">Try different prefix or adjust filters</div></div>`;
+      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>No matches for "${escapeHtml(searchTerm)}"</div></div>`;
+      return;
+    }
+    
+    let tableHtml = `<table><thead><tr><th>Name</th><th>Gender</th><th>Destiny Number</th><th>Insight</th></tr></thead><tbody>`;
+    filtered.forEach(item => {
+      const destinyNum = getFinalDestinyNumber(item.Name);
+      const safeNameAttr = item.Name.replace(/['"\\]/g, '');
+      tableHtml += `
+        <tr>
+          <td style="font-weight:500;">${escapeHtml(item.Name)}</td>
+          <td><span style="background:#f0f4ec; padding:4px 12px; border-radius:30px;">${escapeHtml(item.Gender)}</span></td>
+          <td><span class="destiny-badge">${destinyNum}</span></td>
+          <td><button class="calc-from-db" data-name="${escapeAttr(safeNameAttr)}">Analyze</button></td>
+        </tr>
+      `;
+    });
+    tableHtml += `</tbody></table>`;
+    desktopContainer.innerHTML = tableHtml;
+    
+    let mobileHtml = '';
+    filtered.forEach(item => {
+      const destinyNum = getFinalDestinyNumber(item.Name);
+      const safeNameAttr = item.Name.replace(/['"\\]/g, '');
+      mobileHtml += `
+        <div class="result-card">
+          <div class="result-row"><div class="result-label">Name</div><div class="result-value"><strong>${escapeHtml(item.Name)}</strong></div></div>
+          <div class="result-row"><div class="result-label">Gender</div><div class="result-value">${escapeHtml(item.Gender)}</div></div>
+          <div class="result-row"><div class="result-label">Destiny Number</div><div class="result-value"><span class="destiny-badge">${destinyNum}</span></div></div>
+          <button class="calc-from-db-mobile" data-name="${escapeAttr(safeNameAttr)}">Full Reading</button>
+        </div>
+      `;
+    });
+    mobileContainer.innerHTML = mobileHtml;
+    
+    document.querySelectorAll('.calc-from-db, .calc-from-db-mobile').forEach(btn => {
+      btn.removeEventListener('click', dbClickHandler);
+      btn.addEventListener('click', dbClickHandler);
     });
   }
-}, 3000); // Check after 3 seconds to allow font loading
-</script>
+  
+  function escapeAttr(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+  
+  function dbClickHandler(e) {
+    const nameAttr = e.currentTarget.getAttribute('data-name');
+    if (nameAttr) showNumerologyPopup(nameAttr);
+  }
+  
+  function handleManualCalc() {
+    const nameInput = document.getElementById('manualNameInput').value.trim();
+    if (nameInput === "") {
+      alert("Please enter a name to calculate destiny number");
+      return;
+    }
+    showNumerologyPopup(nameInput);
+  }
+  
+  function showNumerologyPopup(fullName) {
+    const rawName = fullName.trim();
+    if (rawName.length === 0) return;
+    const { total, formulaValues, reductions, finalNum, lettersInfo } = getFullCalculation(rawName);
+    
+    document.getElementById('popupDisplayName').innerText = rawName;
+    document.getElementById('popupFinalNumber').innerText = finalNum;
+    const formulaStr = formulaValues.join(' + ');
+    document.getElementById('popupFormula').innerHTML = `${formulaStr} = <strong>${total}</strong>`;
+    document.getElementById('totalSumSpan').innerText = total;
+    document.getElementById('reductionPathSpan').innerHTML = reductions.join(' → ');
+    
+    const lettersContainer = document.getElementById('lettersBreakdown');
+    lettersContainer.innerHTML = '';
+    if (lettersInfo.length === 0) {
+      lettersContainer.innerHTML = '<div style="text-align:center; padding:12px;">No letter values</div>';
+    } else {
+      lettersInfo.forEach(item => {
+        const tile = document.createElement('div');
+        tile.className = 'letter-tile';
+        tile.innerHTML = `<div class="letter-char">${escapeHtml(item.letter)}</div><div class="letter-value">${item.value}</div>`;
+        lettersContainer.appendChild(tile);
+      });
+    }
+    document.getElementById('resultPopup').style.display = 'flex';
+  }
+  
+  function closePopupGlobal() {
+    document.getElementById('resultPopup').style.display = 'none';
+  }
+  
+  function switchTab(tabId) {
+    const manualDiv = document.getElementById('manualPanel');
+    const excelDiv = document.getElementById('excelPanel');
+    if (tabId === 'manual') {
+      manualDiv.classList.remove('hidden');
+      excelDiv.classList.add('hidden');
+    } else {
+      manualDiv.classList.add('hidden');
+      excelDiv.classList.remove('hidden');
+      if (!databaseLoaded && masterNamesList.length === 0) {
+        loadExcelDatabase();
+      } else {
+        renderSearchResults();
+      }
+    }
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+    });
+  }
 
+  // ===================== LOGIN LOGIC =====================
+  function initLogin() {
+    const loginOverlay = document.getElementById('loginOverlay');
+    const appContainer = document.getElementById('appContainer');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginError = document.getElementById('loginError');
+    const usernameInput = document.getElementById('loginUsername');
+    const passwordInput = document.getElementById('loginPassword');
+
+    function attemptLogin() {
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value.trim();
+      
+      if (username === 'admin' && password === 'nimda') {
+        loginError.style.display = 'none';
+        loginOverlay.style.opacity = '0';
+        setTimeout(() => {
+          loginOverlay.style.display = 'none';
+          appContainer.classList.add('visible');
+        }, 400);
+      } else {
+        loginError.style.display = 'block';
+        usernameInput.value = '';
+        passwordInput.value = '';
+        usernameInput.focus();
+      }
+    }
+
+    loginBtn.addEventListener('click', attemptLogin);
+    usernameInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') attemptLogin();
+    });
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') attemptLogin();
+    });
+  }
+
+  // ===================== EVENT LISTENERS =====================
+  document.addEventListener('DOMContentLoaded', () => {
+    initLogin();
+    
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tab = btn.getAttribute('data-tab');
+        if (tab === 'manual') switchTab('manual');
+        else switchTab('excel');
+      });
+    });
+    
+    document.getElementById('calcBtn').addEventListener('click', handleManualCalc);
+    document.getElementById('manualNameInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleManualCalc();
+    });
+    
+    const searchInput = document.getElementById('searchNameInput');
+    const genderSel = document.getElementById('genderSelect');
+    const numSel = document.getElementById('numSelect');
+    
+    function triggerSearch() {
+      if (databaseLoaded || masterNamesList.length > 0) {
+        renderSearchResults();
+      }
+    }
+    
+    if (searchInput) searchInput.addEventListener('input', triggerSearch);
+    if (genderSel) genderSel.addEventListener('change', triggerSearch);
+    if (numSel) numSel.addEventListener('change', triggerSearch);
+    
+    document.getElementById('closePopupBtn').addEventListener('click', closePopupGlobal);
+    document.getElementById('resultPopup').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('resultPopup')) closePopupGlobal();
+    });
+    
+    loadExcelDatabase();
+  });
+</script>
 </body>
 </html>
