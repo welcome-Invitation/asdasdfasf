@@ -1333,13 +1333,19 @@
       return;
     }
 
-    let tableHtml = `<table><thead><tr><th>#</th><th>Name</th><th>Destiny Number</th><th>Insight</th></tr></thead><tbody>`;
+    // Desktop table wrapper
+    let tableHtml = `<div class="table-wrapper desktop-table"><table><thead><tr><th>#</th><th>Name</th><th>Destiny Number</th><th>Insight</th></tr></thead><tbody>`;
+    // Mobile cards HTML
+    let mobileHtml = `<div class="mobile-cards">`;
+
     names.forEach((name, index) => {
       const { finalNum, reductions, total } = getFullCalculation(name);
       const isSpecialMatch = hasSpecialNumber(reductions, total);
       const destinyClass = isSpecialMatch ? 'destiny-badge highlight-number' : 'destiny-badge';
       const rowClass = isSpecialMatch ? ' class="special-row"' : '';
+      const cardClass = isSpecialMatch ? 'result-card special-row' : 'result-card';
       const safeNameAttr = name.replace(/['"\\]/g, '');
+
       tableHtml += `
         <tr${rowClass}>
           <td>${index + 1}</td>
@@ -1348,11 +1354,24 @@
           <td><button class="calc-from-db" data-name="${escapeAttr(safeNameAttr)}">Analyze</button></td>
         </tr>
       `;
-    });
-    tableHtml += `</tbody></table>`;
-    container.innerHTML = tableHtml;
 
-    container.querySelectorAll('.calc-from-db').forEach(btn => {
+      mobileHtml += `
+        <div class="${cardClass}">
+          <div class="result-row"><div class="result-label">#</div><div class="result-value"><strong>${index + 1}</strong></div></div>
+          <div class="result-row"><div class="result-label">Name</div><div class="result-value"><strong>${escapeHtml(name)}</strong></div></div>
+          <div class="result-row"><div class="result-label">Destiny Number</div><div class="result-value"><span class="${destinyClass}">${finalNum}</span></div></div>
+          <button class="calc-from-db-mobile" data-name="${escapeAttr(safeNameAttr)}">Full Reading</button>
+        </div>
+      `;
+    });
+
+    tableHtml += `</tbody></table></div>`;
+    mobileHtml += `</div>`;
+
+    container.innerHTML = tableHtml + mobileHtml;
+
+    // Attach click handlers to both desktop and mobile buttons
+    container.querySelectorAll('.calc-from-db, .calc-from-db-mobile').forEach(btn => {
       btn.removeEventListener('click', dbClickHandler);
       btn.addEventListener('click', dbClickHandler);
     });
