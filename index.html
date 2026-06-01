@@ -39,14 +39,95 @@
     }
 
     .login-card {
-      background: white;
-      border-radius: 48px;
-      padding: 48px 40px;
-      max-width: 420px;
-      width: 90%;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 40px;
+      padding: 44px 32px;
+      max-width: 440px;
+      width: 100%;
       text-align: center;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: 0 32px 60px rgba(16, 44, 23, 0.24);
+      backdrop-filter: blur(10px);
       animation: fadeInUp 0.5s ease;
+    }
+
+    .login-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .login-brand-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #2d5a3f, #5aa56c);
+      color: white;
+      font-size: 32px;
+      box-shadow: 0 18px 36px rgba(45, 90, 63, 0.24);
+    }
+
+    .login-card h2 {
+      font-size: 28px;
+      color: #1e3b27;
+      margin-bottom: 6px;
+    }
+
+    .login-card p {
+      color: #516b56;
+      margin-bottom: 26px;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .login-input {
+      width: 100%;
+      height: 56px;
+      border-radius: 56px;
+      border: 1px solid #dfe8df;
+      padding: 0 24px;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      font-family: inherit;
+      outline: none;
+      background: #f8faf7;
+      transition: 0.2s;
+    }
+
+    .login-input:focus {
+      border-color: #4f7854;
+      box-shadow: 0 0 0 3px rgba(79, 120, 84, 0.15);
+    }
+
+    .login-btn {
+      width: 100%;
+      height: 56px;
+      border-radius: 56px;
+      background: linear-gradient(135deg, #2d5a3f, #4a7a51);
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      margin-top: 8px;
+      box-shadow: 0 12px 24px rgba(45, 90, 63, 0.18);
+    }
+
+    .login-btn:hover {
+      background: linear-gradient(135deg, #244f33, #3e6a44);
+      transform: translateY(-1px);
+    }
+
+    .login-note {
+      color: #7b8c7a;
+      font-size: 0.85rem;
+      margin-top: 18px;
+      line-height: 1.5;
     }
 
     @keyframes fadeInUp {
@@ -194,6 +275,65 @@
       box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.04);
     }
 
+    .manual-card {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .manual-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .manual-header h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      color: #25402f;
+    }
+
+    .manual-header p {
+      margin: 0;
+      color: #5b6d5b;
+      line-height: 1.5;
+      max-width: 740px;
+    }
+
+    .manual-field {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .manual-action {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .manual-action button {
+      min-width: 180px;
+    }
+
+    .manual-results {
+      margin-top: 4px;
+    }
+
+    .manual-caption {
+      color: #6b7b68;
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .manual-card textarea {
+      min-height: 120px;
+      padding: 18px 20px;
+      border-radius: 22px;
+      resize: vertical;
+    }
+
     label {
       font-weight: 600;
       color: #3a6146;
@@ -205,10 +345,52 @@
 
     .search-section {
       margin-bottom: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .search-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-panel-header h2 {
+      margin: 0;
+      font-size: 1.45rem;
+      color: #253c2d;
+    }
+
+    .search-panel-header p {
+      margin: 0;
+      color: #5d705f;
+      line-height: 1.5;
+      max-width: 720px;
+    }
+
+    .search-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 18px;
+      background: #f4faf3;
+      border: 1px solid #e6f0e3;
+      border-radius: 24px;
+      color: #47614f;
+      font-size: 0.94rem;
+    }
+
+    .search-summary strong {
+      color: #26422f;
+      font-weight: 700;
     }
 
     .search-box-wrapper {
-      margin-bottom: 20px;
+      margin-bottom: 0;
     }
 
     .search-box-wrapper input {
@@ -257,7 +439,7 @@
       align-items: center;
     }
 
-    input, select {
+    input, select, textarea {
       flex: 1;
       min-width: 160px;
       height: 54px;
@@ -269,6 +451,12 @@
       font-family: inherit;
       outline: none;
       transition: 0.2s;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      padding: 16px 22px;
+      line-height: 1.4;
     }
 
     input:focus, select:focus {
@@ -408,6 +596,14 @@
       overflow-y: auto;
       position: relative;
       box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    /* Special highlight for entire popup when 18 or 33 appears */
+    .popup-container.special-highlight {
+      background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+      border: 2px solid #d9534f;
+      box-shadow: 0 30px 50px rgba(217, 83, 79, 0.25);
     }
 
     .close-popup {
@@ -439,6 +635,14 @@
       font-weight: 800;
       color: #2d5a3f;
       border: 2px solid #dfe9dd;
+      transition: all 0.3s ease;
+    }
+
+    .special-highlight .popup-number-circle {
+      background: #fff0ef;
+      border-color: #d9534f;
+      color: #c9302c;
+      box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.2);
     }
 
     .popup-header {
@@ -489,14 +693,53 @@
       color: #263626;
     }
 
+    /* Highlight styles for 18 and 33 numbers */
+    .highlight-number {
+      color: #d9534f;
+      font-weight: 800;
+      background: rgba(217, 83, 79, 0.15);
+      display: inline-block;
+      border-radius: 32px;
+      padding: 2px 10px;
+      margin: 0 2px;
+    }
+
+    .special-row {
+      background: rgba(217, 83, 79, 0.07);
+    }
+
+    .result-card.special-row {
+      border-color: #d9534f;
+      box-shadow: 0 10px 24px rgba(217, 83, 79, 0.14);
+    }
+
     .popup-formula {
       color: #3d4f3d;
       font-size: 0.95rem;
       text-align: center;
       margin-bottom: 18px;
       opacity: 0.95;
-      line-height: 1.4;
+      line-height: 1.5;
       word-break: break-word;
+    }
+
+    .reduction-highlight span {
+      display: inline-block;
+      margin: 0 2px;
+    }
+
+    .reduction-highlight .step-number {
+      background: #f5f5f0;
+      border-radius: 28px;
+      padding: 4px 12px;
+      font-weight: 600;
+    }
+
+    .reduction-highlight .step-highlight {
+      background: #fff0ef;
+      color: #c72a2a;
+      box-shadow: 0 0 0 1px #f5cfcc;
+      font-weight: 800;
     }
 
     .letters-label {
@@ -521,6 +764,11 @@
       text-align: center;
       border: 1px solid #e8efe6;
       box-shadow: none;
+    }
+
+    .special-highlight .letter-tile {
+      background: #fffaf8;
+      border-color: #f0cfcc;
     }
 
     .letter-char {
@@ -604,11 +852,16 @@
 <!-- Login Overlay -->
 <div id="loginOverlay" class="login-overlay">
   <div class="login-card">
-    <h2>Numerology Studio</h2>
-    <p>Enter credentials to continue</p>
+    <div class="login-brand">
+      <div class="login-brand-icon">✦</div>
+      <div>
+        <h2>Welcome back</h2>
+        <p>Enter your credentials to unlock the destiny number studio and access advanced name insights.</p>
+      </div>
+    </div>
     <input type="text" id="loginUsername" class="login-input" placeholder="Username" autocomplete="off" />
     <input type="password" id="loginPassword" class="login-input" placeholder="Password" autocomplete="off" />
-    <button id="loginBtn" class="login-btn">Login</button>
+    <button id="loginBtn" class="login-btn">Secure Login</button>
     <div id="loginError" class="login-error">Invalid username or password</div>
   </div>
 </div>
@@ -627,18 +880,30 @@
 
     <!-- Manual Tab -->
     <div id="manualPanel" class="tab-panel">
-      <div class="card">
-        <label>Full name (letters and spaces)</label>
-        <div class="row">
-          <input type="text" id="manualNameInput" placeholder="Example: Shrawasti, Shrutika, Vishal" autocomplete="off" />
+      <div class="card manual-card">
+        <div class="manual-header">
+          <div>
+            <h2>Manual Batch Analysis</h2>
+            <p>Enter multiple names separated by commas or new lines to analyze them together.</p>
+          </div>
+          <div class="manual-caption">Example: Shrawasti, Shruti. Vishal,...</div>
+        </div>
+
+        <div class="manual-field">
+          <label for="manualNameInput">Names input</label>
+          <textarea id="manualNameInput" rows="4" placeholder="Enter multiple names separated by commas or new lines" autocomplete="off"></textarea>
+        </div>
+
+        <div class="manual-action">
           <button id="calcBtn">Calculate Number</button>
         </div>
-        <div class="info-note">© 2026 Numerology Studio. All Rights Reserved. Designed & Developed by Vishal & Shrutika.
-</div>
+
+        <div id="manualResultsContainer" class="manual-results"></div>
+        <div class="info-note">© 2026 Numerology Studio. All Rights Reserved. Designed & Developed by Vishal & Shrutika.</div>
       </div>
     </div>
 
-    <!-- Database Tab - requires search prefix to display data, boy/girl only -->
+    <!-- Database Tab -->
     <div id="excelPanel" class="tab-panel hidden">
       <div class="card">
         <div class="status-badge" id="excelLoadStatus">
@@ -646,8 +911,15 @@
         </div>
         
         <div class="search-section">
+          <div class="search-panel-header">
+            <div>
+              <h2>Global Search</h2>
+              <p>Search names by prefix, filter by gender, or lookup by destiny number. Results update instantly as you type.</p>
+            </div>
+            <div id="searchSummary" class="search-summary">Enter a search term to see results.</div>
+          </div>
           <div class="search-box-wrapper">
-            <input type="text" id="searchNameInput" placeholder="Type name prefix (e.g., Sa, Vi, An, Chr) to search..." autocomplete="off" />
+            <input type="text" id="searchNameInput" placeholder="Type name prefix or destiny number (e.g., Sa, Vi, 7) to search..." autocomplete="off" />
           </div>
           <div class="filters-row">
             <select id="genderSelect">
@@ -677,7 +949,7 @@
 
 <!-- Result Popup -->
 <div id="resultPopup" class="popup">
-  <div class="popup-container">
+  <div class="popup-container" id="popupContainer">
     <div class="close-popup" id="closePopupBtn">×</div>
     <div class="popup-header">
       <div class="popup-title">Numerology Result</div>
@@ -686,7 +958,6 @@
     <div class="popup-number-circle" id="popupFinalNumber">0</div>
     <div id="popupFormula" class="popup-formula"></div>
     <div id="popupDetails" class="popup-details">
-<!--       <div class="detail-pair"><span>Total</span><strong id="totalSumSpan">0</strong></div>   -->
       <div class="detail-pair"><span>Reduction</span><strong id="reductionPathSpan">—</strong></div>
     </div>
     <div class="letters-label">Letter values</div>
@@ -695,7 +966,7 @@
 </div>
 
 <script>
-  // ===================== NUMEROLOGY CORE =====================
+  // ===================== NUMEROLOGY CORE (Application Logic) =====================
   const numerologyMap = {
     1: ['A', 'I', 'J', 'Q', 'Y'],
     2: ['B', 'K', 'R'],
@@ -754,7 +1025,110 @@
     return { total, formulaValues, reductions, finalNum, lettersInfo };
   }
 
-  // ===================== EXCEL LOADER (NO SAMPLE DATA, NO UNISEX) =====================
+  // Check if any special number (18 or 33) appears in the calculation
+  function hasSpecialNumber(reductions, total) {
+    if (total === 18 || total === 33) return true;
+    for (let step of reductions) {
+      if (step === 18 || step === 33) return true;
+    }
+    return false;
+  }
+
+  // Helper: format a number with red highlight if it's 18 or 33
+  function formatNumberWithHighlight(num) {
+    const isSpecial = (num === 18 || num === 33);
+    if (isSpecial) {
+      return `<span class="highlight-number">${num}</span>`;
+    }
+    return `${num}`;
+  }
+
+  // Build reduction path HTML with highlight for 18 or 33
+  function buildReductionPathHtml(reductions) {
+    let html = '';
+    for (let i = 0; i < reductions.length; i++) {
+      const val = reductions[i];
+      const isSpecial = (val === 18 || val === 33);
+      if (isSpecial) {
+        html += `<span class="step-number step-highlight">${val}</span>`;
+      } else {
+        html += `<span class="step-number">${val}</span>`;
+      }
+      if (i < reductions.length - 1) html += ` <span style="font-weight:600;">→</span> `;
+    }
+    return html;
+  }
+
+  // Build formula string with red highlighting for any intermediate total if 18 or 33 appear
+  function buildFormulaHtml(formulaValues, total) {
+    let formulaString = formulaValues.join(' + ');
+    const totalSpecial = (total === 18 || total === 33);
+    let displayedTotal = totalSpecial ? `<span class="highlight-number">${total}</span>` : `${total}`;
+    return `${formulaString} = <strong>${displayedTotal}</strong>`;
+  }
+
+  // ===================== UI RENDERING =====================
+  function showNumerologyPopup(fullName) {
+    const rawName = fullName.trim();
+    if (rawName.length === 0) return;
+    const { total, formulaValues, reductions, finalNum, lettersInfo } = getFullCalculation(rawName);
+    
+    // Check if special numbers (18 or 33) are present
+    const isSpecial = hasSpecialNumber(reductions, total);
+    const popupContainer = document.getElementById('popupContainer');
+    
+    // Apply or remove special highlight class on the entire popup container
+    if (isSpecial) {
+      popupContainer.classList.add('special-highlight');
+    } else {
+      popupContainer.classList.remove('special-highlight');
+    }
+    
+    document.getElementById('popupDisplayName').innerText = rawName;
+    document.getElementById('popupFinalNumber').innerText = finalNum;
+    
+    // Apply highlighting for formula line if total is 18 or 33
+    const formulaHtml = buildFormulaHtml(formulaValues, total);
+    document.getElementById('popupFormula').innerHTML = formulaHtml;
+    
+    // Reduction path with red highlight for 18 and 33
+    const reductionHtml = buildReductionPathHtml(reductions);
+    document.getElementById('reductionPathSpan').innerHTML = reductionHtml;
+    
+    const lettersContainer = document.getElementById('lettersBreakdown');
+    lettersContainer.innerHTML = '';
+    if (lettersInfo.length === 0) {
+      lettersContainer.innerHTML = '<div style="text-align:center; padding:12px;">No letter values</div>';
+    } else {
+      lettersInfo.forEach(item => {
+        const tile = document.createElement('div');
+        tile.className = 'letter-tile';
+        tile.innerHTML = `<div class="letter-char">${escapeHtml(item.letter)}</div><div class="letter-value">${item.value}</div>`;
+        lettersContainer.appendChild(tile);
+      });
+    }
+    document.getElementById('resultPopup').style.display = 'flex';
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+  
+  function escapeAttr(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  
+  function closePopupGlobal() {
+    document.getElementById('resultPopup').style.display = 'none';
+  }
+  
+  // ===================== EXCEL LOADER (Database Layer) =====================
   const EXCEL_URL = 'https://docs.google.com/spreadsheets/d/1Jc6itshgW7SxfgjYaDD9Wzl_C-rV1eqU/export?format=xlsx';
   let masterNamesList = [];
   let databaseLoaded = false;
@@ -829,8 +1203,8 @@
       desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📄</div><div>No database loaded. Please refresh or check spreadsheet.</div></div>`;
       mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📄</div><div>No data available.</div></div>`;
     } else {
-      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Type at least 1 letter in search box to see names</div><div style="font-size:13px; margin-top:8px;">Example: "Sa", "Vi", "An"</div></div>`;
-      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Enter a name prefix to search</div><div style="font-size:13px; margin-top:6px;">Use search box above</div></div>`;
+      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Type at least 1 letter or number in search box to see names</div><div style="font-size:13px; margin-top:8px;">Example: "Sa", "Vi", "7"</div></div>`;
+      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Enter a name prefix or destiny number to search</div><div style="font-size:13px; margin-top:6px;">Use search box above</div></div>`;
     }
   }
 
@@ -838,14 +1212,10 @@
     const searchTerm = document.getElementById('searchNameInput').value.trim().toLowerCase();
     const desktopContainer = document.getElementById('desktopResultsContainer');
     const mobileContainer = document.getElementById('mobileCardsList');
-    
-    if (!searchTerm || searchTerm.length === 0) {
-      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Start typing a name prefix (e.g., "Sa", "Vi", "An")</div><div style="font-size:13px; margin-top:8px;">Search is required to display results</div></div>`;
-      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Type at least 1 character to search</div></div>`;
-      return;
-    }
-    
+    const summary = document.getElementById('searchSummary');
+    const searchNumber = /^\d+$/.test(searchTerm) ? parseInt(searchTerm, 10) : null;
     if (!databaseLoaded || masterNamesList.length === 0) {
+      if (summary) summary.innerHTML = 'Database loading. Please wait or refresh if this takes too long.';
       desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠</div><div>Database not loaded yet. Please wait or refresh.</div></div>`;
       mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠</div><div>Loading names...</div></div>`;
       return;
@@ -853,9 +1223,23 @@
     
     const genderFilter = document.getElementById('genderSelect').value.toLowerCase();
     const numberFilter = document.getElementById('numSelect').value;
+    const hasAnyFilter = searchTerm.length > 0 || genderFilter || numberFilter !== "";
     
+    if (!hasAnyFilter) {
+      if (summary) summary.innerHTML = 'Enter a name prefix or select a destiny number to see matching results.';
+      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Start typing a name prefix or use the destiny number filter.</div><div style="font-size:13px; margin-top:8px;">Search is required to display results</div></div>`;
+      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>Type at least 1 character or select a filter to search</div></div>`;
+      return;
+    }
+
     let filtered = [...masterNamesList];
-    filtered = filtered.filter(item => item.Name.toLowerCase().startsWith(searchTerm));
+    if (searchTerm) {
+      filtered = filtered.filter(item => {
+        const nameMatch = item.Name.toLowerCase().startsWith(searchTerm);
+        const destinyMatch = searchNumber !== null && getFinalDestinyNumber(item.Name) === searchNumber;
+        return nameMatch || destinyMatch;
+      });
+    }
     
     if (genderFilter) {
       filtered = filtered.filter(item => item.Gender === genderFilter);
@@ -866,20 +1250,29 @@
     }
     
     if (filtered.length === 0) {
-      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>No names starting with "${escapeHtml(searchTerm)}"</div><div style="font-size:13px; margin-top:8px;">Try different prefix or adjust filters</div></div>`;
-      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>No matches for "${escapeHtml(searchTerm)}"</div></div>`;
+      const queryLabel = searchTerm ? ` for <strong>${escapeHtml(searchTerm)}</strong>` : '';
+      let filterLabel = numberFilter ? `destiny number ${numberFilter}` : genderFilter ? `${genderFilter}` : '';
+      if (searchTerm && genderFilter) filterLabel = `${filterLabel} and prefix ${escapeHtml(searchTerm)}`;
+      if (summary) summary.innerHTML = `No results${queryLabel}${filterLabel ? ` with ${filterLabel}` : ''}. Try a different query or clear filters.`;
+      desktopContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>No names found${queryLabel}</div><div style="font-size:13px; margin-top:8px;">Try broader terms or clear filters</div></div>`;
+      mobileContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div>No matches${queryLabel}</div></div>`;
       return;
     }
     
-    let tableHtml = `<table><thead><tr><th>Name</th><th>Gender</th><th>Destiny Number</th><th>Insight</th></tr></thead><tbody>`;
-    filtered.forEach(item => {
-      const destinyNum = getFinalDestinyNumber(item.Name);
+    let tableHtml = `<table><thead><tr><th>#</th><th>Name</th><th>Gender</th><th>Destiny Number</th><th>Insight</th></tr></thead><tbody>`;
+    filtered.forEach((item, index) => {
+      const fullCalc = getFullCalculation(item.Name);
+      const destinyNum = fullCalc.finalNum;
+      const isSpecialMatch = hasSpecialNumber(fullCalc.reductions, fullCalc.total);
       const safeNameAttr = item.Name.replace(/['"\\]/g, '');
+      const destinyClass = isSpecialMatch ? 'destiny-badge highlight-number' : 'destiny-badge';
+      const rowClass = isSpecialMatch ? ' class="special-row"' : '';
       tableHtml += `
-        <tr>
+        <tr${rowClass}>
+          <td>${index + 1}</td>
           <td style="font-weight:500;">${escapeHtml(item.Name)}</td>
           <td><span style="background:#f0f4ec; padding:4px 12px; border-radius:30px;">${escapeHtml(item.Gender)}</span></td>
-          <td><span class="destiny-badge">${destinyNum}</span></td>
+          <td><span class="${destinyClass}">${destinyNum}</span></td>
           <td><button class="calc-from-db" data-name="${escapeAttr(safeNameAttr)}">Analyze</button></td>
         </tr>
       `;
@@ -888,18 +1281,30 @@
     desktopContainer.innerHTML = tableHtml;
     
     let mobileHtml = '';
-    filtered.forEach(item => {
-      const destinyNum = getFinalDestinyNumber(item.Name);
+    filtered.forEach((item, index) => {
+      const fullCalc = getFullCalculation(item.Name);
+      const destinyNum = fullCalc.finalNum;
+      const isSpecialMatch = hasSpecialNumber(fullCalc.reductions, fullCalc.total);
       const safeNameAttr = item.Name.replace(/['"\\]/g, '');
+      const destinyClass = isSpecialMatch ? 'destiny-badge highlight-number' : 'destiny-badge';
+      const cardClass = isSpecialMatch ? 'result-card special-row' : 'result-card';
       mobileHtml += `
-        <div class="result-card">
+        <div class="${cardClass}">
+          <div class="result-row"><div class="result-label">#</div><div class="result-value"><strong>${index + 1}</strong></div></div>
           <div class="result-row"><div class="result-label">Name</div><div class="result-value"><strong>${escapeHtml(item.Name)}</strong></div></div>
           <div class="result-row"><div class="result-label">Gender</div><div class="result-value">${escapeHtml(item.Gender)}</div></div>
-          <div class="result-row"><div class="result-label">Destiny Number</div><div class="result-value"><span class="destiny-badge">${destinyNum}</span></div></div>
+          <div class="result-row"><div class="result-label">Destiny Number</div><div class="result-value"><span class="${destinyClass}">${destinyNum}</span></div></div>
           <button class="calc-from-db-mobile" data-name="${escapeAttr(safeNameAttr)}">Full Reading</button>
         </div>
       `;
     });
+    const filterParts = [];
+    if (searchTerm) filterParts.push(`query <strong>${escapeHtml(searchTerm)}</strong>`);
+    if (numberFilter !== "") filterParts.push(`destiny number <strong>${numberFilter}</strong>`);
+    if (genderFilter) filterParts.push(`<strong>${genderFilter}</strong>`);
+    const filterLabel = filterParts.length ? ` for ${filterParts.join(' and ')}` : '';
+    if (summary) summary.innerHTML = `<strong>${filtered.length}</strong> result${filtered.length === 1 ? '' : 's'}${filterLabel}`;
+    desktopContainer.innerHTML = tableHtml;
     mobileContainer.innerHTML = mobileHtml;
     
     document.querySelectorAll('.calc-from-db, .calc-from-db-mobile').forEach(btn => {
@@ -908,65 +1313,68 @@
     });
   }
   
-  function escapeAttr(str) {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  }
-  
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    });
-  }
-  
   function dbClickHandler(e) {
     const nameAttr = e.currentTarget.getAttribute('data-name');
     if (nameAttr) showNumerologyPopup(nameAttr);
   }
   
-  function handleManualCalc() {
-    const nameInput = document.getElementById('manualNameInput').value.trim();
-    if (nameInput === "") {
-      alert("Please enter a name to calculate destiny number");
+  function getManualNames(rawInput) {
+    return rawInput
+      .split(/[\n,]+/)
+      .map(name => name.trim().replace(/^\s*\d+[\.\)\-]?\s*/, ''))
+      .filter(Boolean);
+  }
+
+  function renderManualResults(names) {
+    const container = document.getElementById('manualResultsContainer');
+    if (!container) return;
+    if (!names || names.length === 0) {
+      container.innerHTML = '';
       return;
     }
-    showNumerologyPopup(nameInput);
+
+    let tableHtml = `<table><thead><tr><th>#</th><th>Name</th><th>Destiny Number</th><th>Insight</th></tr></thead><tbody>`;
+    names.forEach((name, index) => {
+      const { finalNum, reductions, total } = getFullCalculation(name);
+      const isSpecialMatch = hasSpecialNumber(reductions, total);
+      const destinyClass = isSpecialMatch ? 'destiny-badge highlight-number' : 'destiny-badge';
+      const rowClass = isSpecialMatch ? ' class="special-row"' : '';
+      const safeNameAttr = name.replace(/['"\\]/g, '');
+      tableHtml += `
+        <tr${rowClass}>
+          <td>${index + 1}</td>
+          <td style="font-weight:500;">${escapeHtml(name)}</td>
+          <td><span class="${destinyClass}">${finalNum}</span></td>
+          <td><button class="calc-from-db" data-name="${escapeAttr(safeNameAttr)}">Analyze</button></td>
+        </tr>
+      `;
+    });
+    tableHtml += `</tbody></table>`;
+    container.innerHTML = tableHtml;
+
+    container.querySelectorAll('.calc-from-db').forEach(btn => {
+      btn.removeEventListener('click', dbClickHandler);
+      btn.addEventListener('click', dbClickHandler);
+    });
   }
-  
-  function showNumerologyPopup(fullName) {
-    const rawName = fullName.trim();
-    if (rawName.length === 0) return;
-    const { total, formulaValues, reductions, finalNum, lettersInfo } = getFullCalculation(rawName);
-    
-    document.getElementById('popupDisplayName').innerText = rawName;
-    document.getElementById('popupFinalNumber').innerText = finalNum;
-    const formulaStr = formulaValues.join(' + ');
-    document.getElementById('popupFormula').innerHTML = `${formulaStr} = <strong>${total}</strong>`;
-//    document.getElementById('totalSumSpan').innerText = total;
-    document.getElementById('reductionPathSpan').innerHTML = reductions.join(' → ');
-    
-    const lettersContainer = document.getElementById('lettersBreakdown');
-    lettersContainer.innerHTML = '';
-    if (lettersInfo.length === 0) {
-      lettersContainer.innerHTML = '<div style="text-align:center; padding:12px;">No letter values</div>';
-    } else {
-      lettersInfo.forEach(item => {
-        const tile = document.createElement('div');
-        tile.className = 'letter-tile';
-        tile.innerHTML = `<div class="letter-char">${escapeHtml(item.letter)}</div><div class="letter-value">${item.value}</div>`;
-        lettersContainer.appendChild(tile);
-      });
+
+  function handleManualCalc() {
+    const rawInput = document.getElementById('manualNameInput').value.trim();
+    const manualResults = document.getElementById('manualResultsContainer');
+    if (rawInput === "") {
+      alert("Please enter one or more names to analyze");
+      return;
     }
-    document.getElementById('resultPopup').style.display = 'flex';
+
+    const names = getManualNames(rawInput);
+    if (names.length === 0) {
+      alert("Please enter one or more valid names");
+      return;
+    }
+
+    renderManualResults(names);
   }
-  
-  function closePopupGlobal() {
-    document.getElementById('resultPopup').style.display = 'none';
-  }
-  
+
   function switchTab(tabId) {
     const manualDiv = document.getElementById('manualPanel');
     const excelDiv = document.getElementById('excelPanel');
@@ -1030,7 +1438,7 @@
     initLogin();
     
     document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const tab = btn.getAttribute('data-tab');
         if (tab === 'manual') switchTab('manual');
         else switchTab('excel');
@@ -1038,9 +1446,6 @@
     });
     
     document.getElementById('calcBtn').addEventListener('click', handleManualCalc);
-    document.getElementById('manualNameInput').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') handleManualCalc();
-    });
     
     const searchInput = document.getElementById('searchNameInput');
     const genderSel = document.getElementById('genderSelect');
